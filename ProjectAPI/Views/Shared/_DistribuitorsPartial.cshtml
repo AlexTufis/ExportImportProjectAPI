@@ -1,0 +1,19 @@
+﻿@model List<Distribuitor>
+@foreach (var distribuitor in Model)
+{
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>@distribuitor.Name</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Import @distribuitor.Name:</h6>
+                <a class="collapse-item" asp-action="Index" asp-controller="Manufacturer" asp-route-distribuitorId="@distribuitor.DistribuitorId">Manufacturers</a>
+                <a class="collapse-item" asp-action="Categories" asp-controller="Manufacturer" asp-route-distribuitorId="@distribuitor.DistribuitorId">Categories</a>
+                <a class="collapse-item" asp-action="Products" asp-controller="Manufacturer" asp-route-distribuitorId="@distribuitor.DistribuitorId">Products</a>
+            </div>
+        </div>
+    </li>
+}

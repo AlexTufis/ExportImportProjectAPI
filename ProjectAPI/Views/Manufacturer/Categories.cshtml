@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "/Views/_HomepageLayout.cshtml";
+    var query = Context.Request.Query["distribuitorId"];
+}
+<h1>Categories</h1>
+<form asp-controller="Manufacturer" asp-action="ImportFileCategories" asp-route-distributionId="@query" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <hr />
+    <button type="submit">Upload</button>
+    <p id="successMessage">@ViewBag.Message</p>
+</form>
+@*<a asp-controller="Manufacturer" asp-action="Products" asp-route-distribuitorId="@query"><button class="btn btn-info btnCategoriesNextCategories" id="btnCategoriesNext">Next - Import Products</button></a>*@
