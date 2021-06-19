@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\ProjectAPI.csproj": {}
+    "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\ProjectAPI.csproj": {}
   },
   "projects": {
-    "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\ProjectAPI.csproj": {
+    "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\ProjectAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
+        "projectUniqueName": "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
         "projectName": "ProjectAPI",
-        "projectPath": "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
+        "projectPath": "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
         "packagesPath": "C:\\Users\\Alexandru.Tufis\\.nuget\\packages\\",
-        "outputPath": "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\obj\\",
+        "outputPath": "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

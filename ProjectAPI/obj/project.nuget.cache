@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F/T5h4AHe1fWAPNGsFmfI2UQKYc3xmaw5q9pVSGclGrTqDZMoCs+6ZHYNybDq4JPU7r1/K9xsBLChF4+ihlikw==",
+  "dgSpecHash": "gP0qxmHkvXX60nd/inwhVvIKDoBo8GncYXv9/2t4PvhFiR3i0k1efBlrf19vjA49UBtQjkIMTrPVSxSDw7pjTw==",
   "success": true,
-  "projectFilePath": "C:\\ProjectAPI\\ProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
+  "projectFilePath": "C:\\ProjectAPI\\ProjectAPI\\ExportImportProjectAPI\\ProjectAPI\\ProjectAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alexandru.Tufis\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\Alexandru.Tufis\\.nuget\\packages\\csvhelper\\27.1.0\\csvhelper.27.1.0.nupkg.sha512",

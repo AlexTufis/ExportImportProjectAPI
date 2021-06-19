@@ -28,6 +28,16 @@ namespace ProjectAPI.Repositories
             return context.Manufacturers.ToList();
         }
 
+        public List<Pricing> GetPricingsDatabase()
+        {
+            return context.Pricings.ToList();
+        }
+
+        public List<Product> GetProductsDatabase()
+        {
+            return context.Products.ToList();
+        }
+
         public void InsertCategory(List<Category> categories)
         {
             if (categories != null)
@@ -111,6 +121,85 @@ namespace ProjectAPI.Repositories
             }
         }
 
+        public void InsertPricings(List<Pricing> pricings)
+        {
+            if (pricings != null)
+            {
+                foreach (var pricing in pricings)
+                {
+                    var exist = VerifyIfPricingExists(pricing);
+                    if (exist == true)
+                    {
+                         UpdatePricing(pricing);
+                    }
+                    else
+                    {
+                        var item = new Pricing
+                        {
+                            PricingId = pricing.PricingId,
+                            Availability = pricing.Availability,
+                            Price = pricing.Price,
+                            ProductId = pricing.ProductId,
+                            DistribuitorId = pricing.DistribuitorId
+                        };
+                        context.Pricings.Add(item);
+                    }
+                }
+            }
+            Save();
+        }
+
+        public void InsertProduct(List<Product> products)
+        {
+            if (products != null)
+            {
+                foreach (var product in products)
+                {
+                    var exist = VerifyIfProductExists(product);
+                    if (exist == true)
+                    {
+                       UpdateProduct(product);
+                    }
+                    else
+                    {
+                        var item = new Product
+                        {
+                            ProductId = product.ProductId,
+                            Model = product.Model,
+                            Name = product.Name,
+                            ProductUrl = product.ProductUrl,
+                            EAN = product.EAN,
+                            CategoryId = product.CategoryId
+                        };
+                        context.Products.Add(item);
+                    }
+                }
+            }
+            Save();
+        }
+
+        public void InsertProductDistribuitors(List<Product> products, string distribuitorId)
+        {
+            if (products != null)
+            {
+                foreach (var product in products)
+                {
+                    var exist = VerifyIfProductDistribuitorExists(product);
+                    if (exist == false)
+                    {
+                        var item = new ProductDistribuitor
+                        {
+                            ProductDistribuitorId = Guid.NewGuid(),
+                            ProductId = product.ProductId,
+                            DistribuitorId = new Guid(distribuitorId)
+                        };
+                        context.ProductDistribuitors.Add(item);
+                    }
+                }
+                Save();
+            }
+        }
+
         public void Save()
         {
             context.SaveChanges();
@@ -120,8 +209,8 @@ namespace ProjectAPI.Repositories
         {
             try
             {
-                //var updatedManufacturer = context.Manufacturers.First(m => m.Name == manufacturer.Name || m.Image == manufacturer.Image || m.Description == manufacturer.Description || m.MetaDescription == manufacturer.MetaDescription || m.MetaKeyword == manufacturer.MetaKeyword);
-                var updatedCategory = context.Categories.First(c => c.Code == category.Code);
+                //var updatedCategory = context.Categories.First(c => c.Parent == category.Parent || c.Code == category.Code || c.Image == category.Image || c.Url == category.Url || c.Name == category.Name || c.Description == category.Description || c.MetaDescription == category.MetaDescription || c.MetaKeywords == category.MetaKeywords);
+                var updatedCategory = context.Categories.First(c => c.Parent == category.Parent && c.Code == category.Code);
                 updatedCategory.Parent = category.Parent;
                 updatedCategory.Code = category.Code;
                 updatedCategory.Image = category.Image;
@@ -162,6 +251,40 @@ namespace ProjectAPI.Repositories
             }
         }
 
+        public void UpdatePricing(Pricing pricing)
+        {
+            try
+            {
+                var updatedPricing = context.Pricings.First(p => p.Availability == pricing.Availability && p.Price == pricing.Price);
+                //var updatedManufacturer = context.Manufacturers.First(m => m.Name == manufacturer.Name);
+                updatedPricing.Availability = pricing.Availability;
+                updatedPricing.Price = pricing.Price;
+            }
+            catch (Exception e)
+            {
+                // handle correct exception
+                // log error
+            }
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            try
+            {
+                var updatedProduct = context.Products.First(p => p.EAN == product.EAN);
+                //var updatedManufacturer = context.Manufacturers.First(m => m.Name == manufacturer.Name);
+                updatedProduct.Model = product.Model;
+                updatedProduct.Name = product.Name;
+                updatedProduct.ProductUrl = product.ProductUrl;
+                updatedProduct.EAN = product.EAN;
+            }
+            catch (Exception e)
+            {
+                // handle correct exception
+                // log error
+            }
+        }
+
         public bool VerifyIfCategoryExists(Category category)
         {
             var result = context.Categories.Where(c => c.CategoryId == category.CategoryId).FirstOrDefault();
@@ -183,6 +306,33 @@ namespace ProjectAPI.Repositories
         public bool VerifyIfManufacturerExists(Manufacturer manufacturer)
         {
             var result = context.Manufacturers.Where(m => m.ManufacturerId == manufacturer.ManufacturerId).FirstOrDefault();
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+
+        public bool VerifyIfPricingExists(Pricing pricing)
+        {
+            var result = context.Pricings.Where(p => p.PricingId == pricing.PricingId).FirstOrDefault();
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+
+        public bool VerifyIfProductDistribuitorExists(Product product)
+        {
+            var result = context.ProductDistribuitors.Where(x => x.ProductId == product.ProductId).FirstOrDefault();
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+
+        public bool VerifyIfProductExists(Product product)
+        {
+            var result = context.Products.Where(p => p.ProductId == product.ProductId).FirstOrDefault();
             if (result != null)
                 return true;
             else

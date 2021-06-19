@@ -3,7 +3,7 @@
     var query = Context.Request.Query["distribuitorId"];
 }
 <h1>Products</h1>
-<form asp-controller="Manufacturer" asp-action="ImportFileProducts" asp-route-distributionId="@query" method="post" enctype="multipart/form-data">
+<form asp-controller="Manufacturer" asp-action="ImportFileProducts" asp-route-distribuitorId="@query" method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
     <hr />
     <button type="submit">Upload</button>

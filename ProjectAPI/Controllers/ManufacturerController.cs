@@ -70,5 +70,41 @@ namespace ProjectAPI.Controllers
             distribuitors = homeRepository.GetDistribuitors();
             return View(distribuitors);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> ImportFileProducts(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment, string distribuitorId)
+        {
+            List<Distribuitor> distribuitors = new List<Distribuitor>();
+            distribuitors = homeRepository.GetDistribuitors();
+            var parser = new Parser();
+            parser.GetFileName(file, hostingEnvironment);
+            var categoriesDatabase = excelRepository.GetCategoriesDatabase();
+            var productsDatabase = excelRepository.GetProductsDatabase();
+            var products = parser.GetProductList(parser.GetFileName(file, hostingEnvironment), categoriesDatabase, productsDatabase);
+            excelRepository.InsertProduct(products);
+            excelRepository.InsertProductDistribuitors(products, distribuitorId);
+            ViewBag.Message = "Products uploaded successfully";
+            return View("Products", distribuitors);
+        }
+        public IActionResult Pricings(string distribuitorId)
+        {
+            List<Distribuitor> distribuitors = new List<Distribuitor>();
+            distribuitors = homeRepository.GetDistribuitors();
+            return View(distribuitors);
+        }
+        [HttpPost]
+        public async Task<ActionResult> ImportFilePricings(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment, string distribuitorId)
+        {
+            List<Distribuitor> distribuitors = new List<Distribuitor>();
+            distribuitors = homeRepository.GetDistribuitors();
+            var parser = new Parser();
+            parser.GetFileName(file, hostingEnvironment);
+            var productsDatabase = excelRepository.GetProductsDatabase();
+            var pricingsDatabase = excelRepository.GetPricingsDatabase();
+            var pricings = parser.GetPricingsList(parser.GetFileName(file, hostingEnvironment), productsDatabase, distribuitorId, pricingsDatabase);
+            excelRepository.InsertPricings(pricings);
+            ViewBag.Message = "Pricings uploaded successfully";
+            return View("Pricings", distribuitors);
+        }
     }
 }
